@@ -17,7 +17,7 @@ public class PlayerControllerX : MonoBehaviour
     private AudioSource playerAudio;
     public AudioClip moneySound;
     public AudioClip explodeSound;
-    private bool isLowEnough = true;
+    private bool LowEnough;
 
     // Start is called before the first frame update
     void Start()
@@ -35,15 +35,22 @@ public class PlayerControllerX : MonoBehaviour
     void Update()
     {
         // if the y distance is less than 9.5 the player can jump
-        if (transform.position.y < upperBound)
-        {
-            isLowEnough = true;
 
-            if (Input.GetKeyDown(KeyCode.Space) && (!gameOver) && isLowEnough)
-            {
-                playerRb.AddForce(Vector3.up * floatForce, ForceMode.Impulse);
-            }
+       if(transform.position.y > upperBound)
+        {
+            LowEnough = false;
+        }else
+        {
+            LowEnough = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) &&LowEnough &&  !gameOver)
+            {
+                playerRb.AddForce(Vector3.up * floatForce,ForceMode.Impulse);
+
+           }
+           
+        
         // While space is pressed and player is low enough, float up
 
     }
